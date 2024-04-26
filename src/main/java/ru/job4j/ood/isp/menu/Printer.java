@@ -12,4 +12,5 @@ public class Printer implements MenuPrinter {
             System.out.println(menuItem.getNumber() + " " + menuItem.getName());
         }
     }
+
 }

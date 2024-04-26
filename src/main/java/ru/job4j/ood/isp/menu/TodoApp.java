@@ -45,6 +45,7 @@ public class TodoApp {
                 default -> System.out.println("Такого пункта не сущетсвует, попробуйте еще раз");
             }
         }
+
     }
 
     private void addElementToRoot(Scanner scanner) {
