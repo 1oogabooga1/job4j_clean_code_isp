@@ -34,7 +34,6 @@ public class SimpleMenu implements Menu {
                 return new MenuItemInfo(itemInfo.menuItem, itemInfo.number);
             }
         };
-
     }
 
     private Optional<ItemInfo> findItem(String name) {
