@@ -8,25 +8,45 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-   /*  добавьте реализацию*/
-        return  false;
+        MenuItem item = new SimpleMenuItem(childName, actionDelegate);
+        return rootElements.add(item);
     }
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
-        /*  добавьте реализацию*/
-        return null;
+        Optional<ItemInfo> item = findItem(itemName);
+        return Optional.of(new MenuItemInfo(item.get().menuItem, item.get().number));
     }
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
-        /*  добавьте реализацию*/
-        return null;
+        return new Iterator<>() {
+            private final DFSIterator dfsIterator = new DFSIterator();
+
+            @Override
+            public boolean hasNext() {
+                return dfsIterator.hasNext();
+            }
+
+            @Override
+            public MenuItemInfo next() {
+                ItemInfo itemInfo = dfsIterator.next();
+                return new MenuItemInfo(itemInfo.menuItem, itemInfo.number);
+            }
+        };
     }
 
     private Optional<ItemInfo> findItem(String name) {
-        /*  добавьте реализацию*/
-        return null;
+        DFSIterator iterator = new DFSIterator();
+        Optional<ItemInfo> rsl = Optional.empty();
+        while (iterator.hasNext()) {
+            ItemInfo itemInfo = iterator.next();
+            MenuItem menuItem = itemInfo.menuItem;
+            if (name.equals(menuItem.getName())) {
+                rsl = Optional.of(itemInfo);
+            }
+        }
+        return rsl;
     }
 
     private static class SimpleMenuItem implements MenuItem {
@@ -58,9 +78,9 @@ public class SimpleMenu implements Menu {
 
     private class DFSIterator implements Iterator<ItemInfo> {
 
-        Deque<MenuItem> stack = new LinkedList<>();
+        private Deque<MenuItem> stack = new LinkedList<>();
 
-        Deque<String> numbers = new LinkedList<>();
+        private Deque<String> numbers = new LinkedList<>();
 
         DFSIterator() {
             int number = 1;
@@ -94,8 +114,8 @@ public class SimpleMenu implements Menu {
 
     private class ItemInfo {
 
-        MenuItem menuItem;
-        String number;
+        private MenuItem menuItem;
+        private String number;
 
         public ItemInfo(MenuItem menuItem, String number) {
             this.menuItem = menuItem;
