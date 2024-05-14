@@ -1,9 +1,9 @@
 package ru.job4j.ood.isp.menu;
 
 import java.util.Iterator;
-import java.util.List;
 
 public class Printer implements MenuPrinter {
+
     @Override
     public void print(Menu menu) {
         Iterator<Menu.MenuItemInfo> iterator = menu.iterator();
@@ -12,4 +12,5 @@ public class Printer implements MenuPrinter {
             System.out.println(menuItem.getNumber() + " " + menuItem.getName());
         }
     }
+
 }

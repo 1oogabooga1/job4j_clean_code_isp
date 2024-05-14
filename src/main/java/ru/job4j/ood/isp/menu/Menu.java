@@ -51,6 +51,16 @@ public interface Menu extends Iterable<Menu.MenuItemInfo> {
         }
 
         @Override
+        public String toString() {
+            return "MenuItemInfo{"
+                    + "name='" + name + '\''
+                    + ", children=" + children
+                    + ", actionDelegate=" + actionDelegate
+                    + ", number='" + number + '\''
+                    + '}';
+        }
+
+        @Override
         public boolean equals(Object o) {
             if (this == o) {
                 return true;

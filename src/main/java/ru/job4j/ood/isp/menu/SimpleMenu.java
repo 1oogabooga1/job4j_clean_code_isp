@@ -8,8 +8,15 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-        MenuItem item = new SimpleMenuItem(childName, actionDelegate);
-        return rootElements.add(item);
+        boolean rsl = false;
+        if (parentName == null) {
+            MenuItem item = new SimpleMenuItem(childName, actionDelegate);
+            rsl = rootElements.add(item);
+        } else {
+            Optional<ItemInfo> item = findItem(parentName);
+            rsl = item.get().menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
+        }
+        return rsl;
     }
 
     @Override
