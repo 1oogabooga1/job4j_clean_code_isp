@@ -24,10 +24,13 @@ class PrinterTest {
         menu.add(Menu.ROOT, "One", () -> { });
         menu.add("One", "two", () -> { });
         menu.add(null, "three", () -> { });
+        menu.add("two", "second", () -> { });
+        menu.add("second", "third", () -> { });
         printer.print(menu);
-        assertThat("""
-                1. One
-                1.1. two
-                2. three""").isEqualTo(outputStreamCaptor.toString().trim());
+        assertThat("1. One" + System.lineSeparator() +
+                "----1.1. two" + System.lineSeparator() +
+                "------1.1.1. second" + System.lineSeparator() +
+                "--------1.1.1.1. third" + System.lineSeparator() +
+                "2. three").isEqualTo(outputStreamCaptor.toString().trim());
     }
 }
